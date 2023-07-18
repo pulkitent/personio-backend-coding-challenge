@@ -66,6 +66,29 @@ interface OccurrencesRepositoryContractTest {
     }
 
     @Test
+    fun `find at should return all occurrences`() {
+        val reminderForEmployee1 = MotherObject.reminders().new()
+        val reminderForEmployee2 = MotherObject.reminders().new()
+        val occurrenceForEmployee1 = MotherObject.occurrences().newFrom(reminderForEmployee1)
+        val occurrenceForEmployee2 = MotherObject.occurrences().newFrom(reminderForEmployee2)
+        val repo = subjectWithData(
+            listOf(
+                reminderForEmployee1,
+                reminderForEmployee2
+            ),
+            listOf(
+                occurrenceForEmployee1,
+                occurrenceForEmployee2
+            ),
+            MotherObject.clock
+        )
+
+        val foundOccurrences = repo.findAt(Instant.now(MotherObject.clock))
+
+        assertEquals(0, foundOccurrences.size)
+    }
+
+    @Test
     fun `should detect reminders to recur`() {
         val date = Instant.now(MotherObject.clock)
         val recurringReminder = MotherObject.reminders().new(

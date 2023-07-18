@@ -20,3 +20,5 @@ class FindOccurrencesUseCase(
 ) {
     fun findAll(employeeId: UUID) = occurrencesRepository.findAt(Instant.now(clock), employeeId)
 }
+
+// Notification pattern

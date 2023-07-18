@@ -29,6 +29,7 @@ class SendOccurrencesByEmailUseCase(
     @Scheduled(cron = "0 */5 * * * *")
     fun sendReminders() = occurrences.findAt(Instant.now(clock))
         .filter { !it.isNotificationSent }
+        .filter { !it.isAcknowledged }
         .forEach { occurrence ->
             val message = Message(occurrence.reminder.text, occurrence.reminder.employeeId)
             mailer.send(message)

@@ -2,8 +2,10 @@ package com.personio.reminders.api.http.v1.requests
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.UUID
+import org.jetbrains.annotations.NotNull
 
 data class CreateReminderRequest(
+    @NotNull
     val text: String,
     @JsonProperty("employee_id")
     val employeeId: UUID,

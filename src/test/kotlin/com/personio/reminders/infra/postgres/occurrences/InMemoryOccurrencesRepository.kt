@@ -31,10 +31,7 @@ class InMemoryOccurrencesRepository(
     }
 
     override fun findAt(instant: Instant): Collection<Occurrence> {
-        return occurrences.filter {
-            !it.isAcknowledged &&
-                Instant.parse(it.date).isBefore(instant)
-        }
+        return occurrences.filter { Instant.parse(it.date).isBefore(instant) }
     }
 
     override fun findAt(instant: Instant, employeeId: UUID): Collection<Occurrence> {
